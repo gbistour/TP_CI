@@ -4,7 +4,8 @@
     </description>
   
   <!-- =================================================================================== -->
-  <!-- set global properties for this build                                                -->
+  <!-- On déclare les noms de dossiers que l'on utilise dans le script. Cela nous permet de ne pas à recopier les chemins à chaque utilisation 
+  les chemins sont relatifs, celà permet une utilisation d'un poste à l'autre-->
   <property name="src" location="TP_javaProject"/>
   <property name="bin" location="bin"/>
   <property name="jar" location="jar"/>
@@ -12,9 +13,7 @@
   <property name="assets" location="Assets"/>
 
 
- 
-
-  <!-- Sous dossier pour les sources compilées -->
+  <!-- Sous dossiers pour les sources compilées.-->
   <property name="dal" location="./bin/dal"/>
   <property name="services" location="./bin/services"/>
   <property name="gui" location="./bin/gui"/>
@@ -69,7 +68,7 @@
 
 </target>
 
-<target name="buildSer" description="java compilation services" depends="buildDal">
+<target name="buildSer" description="java compilation services" depends="clean">
     <javac srcdir="${src}/services/src"
           destdir="${services}"
           classpath="${jar}/dal.jar"
@@ -80,7 +79,7 @@
   </target>
 
 
-  <target name="buildGui" description="java compilation gui" depends="buildSer">
+  <target name="buildGui" description="java compilation gui" depends="clean">
     <javac srcdir="${src}/gui/src"
            destdir="${gui}"
            classpath="${jar}/services.jar;${jar}/dal.jar;${jar}/${sqliteLibName}"
@@ -93,6 +92,4 @@
      />  
  </target>
    
-  <!-- =================================================================================== -->
-
 </project>
