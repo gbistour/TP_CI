@@ -25,7 +25,7 @@
   
   <property name="db" value="database.db3"/>
 
-<target name="buildSer" description="java compilation services" depends="buildDal">
+<target name="buildSer" description="java compilation services">
     <javac srcdir="${src}/services/src"
           destdir="${services}"
           classpath="${jar}/dal.jar"
