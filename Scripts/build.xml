@@ -1,0 +1,98 @@
+<project name="MyFirstProject" default="buildGui" basedir="..">
+    <description>
+        Build a little java project and generate Jar file
+    </description>
+  
+  <!-- =================================================================================== -->
+  <!-- set global properties for this build                                                -->
+  <property name="src" location="TP_javaProject"/>
+  <property name="bin" location="bin"/>
+  <property name="jar" location="jar"/>
+  <property name="libs" location="Libs"/>
+  <property name="assets" location="Assets"/>
+
+
+ 
+
+  <!-- Sous dossier pour les sources compilées -->
+  <property name="dal" location="./bin/dal"/>
+  <property name="services" location="./bin/services"/>
+  <property name="gui" location="./bin/gui"/>
+
+
+  <property name="sqliteLibName" value="sqlite4java.jar"/>
+  <property name="jniLib1" value="libsqlite4java-osx-10.4.jnilib"/>
+  <property name="jniLib2" value="libsqlite4java-osx-ppc.jnilib"/>
+  <property name="jniLib3" value="libsqlite4java-osx.jnilib"/>
+  
+  <property name="db" value="database.db3"/>
+
+  <!-- =================================================================================== -->
+
+  <!-- =================================================================================== -->
+ <target name="clean" description="clean up folders" >
+ <echo message="Mon répertoire bin: ${bin}"/>
+    <delete dir="${bin}"/>
+    <delete dir="${jar}"/>
+
+    <mkdir dir="${bin}"/>
+    <mkdir dir="${dal}"/>
+    <mkdir dir="${gui}"/>
+    <mkdir dir="${services}"/>
+
+    <mkdir dir="${jar}"/>
+
+
+    <copy file="${assets}/${db}" todir="${jar}"/>
+    <copy file="${libs}/${sqliteLibName}" todir="${jar}"/>
+    <copy file="${libs}/${jniLib1}" todir="${jar}"/>
+    <copy file="${libs}/${jniLib2}" todir="${jar}"/>
+    <copy file="${libs}/${jniLib3}" todir="${jar}"/>
+    
+
+</target>
+
+
+  <!-- =================================================================================== -->
+
+
+<target name="buildDal" description="java compilation" depends="clean">
+
+    <javac srcdir="${src}/dal/src"
+          destdir="${dal}"
+          classpath="${jar}/${sqliteLibName}"
+          source="7"
+           
+
+    /> 
+    <jar destfile="${jar}/dal.jar" basedir="${dal}"/>
+
+</target>
+
+<target name="buildSer" description="java compilation services" depends="buildDal">
+    <javac srcdir="${src}/services/src"
+          destdir="${services}"
+          classpath="${jar}/dal.jar"
+          source="7"
+          includeantruntime="false"
+    />  
+    <jar destfile="${jar}/services.jar" basedir="${services}"/> 
+  </target>
+
+
+  <target name="buildGui" description="java compilation gui" depends="buildSer">
+    <javac srcdir="${src}/gui/src"
+           destdir="${gui}"
+           classpath="${jar}/services.jar;${jar}/dal.jar;${jar}/${sqliteLibName}"
+           source="7"
+           includeantruntime="false"
+
+    /> 
+    <jar destfile="${jar}/gui.jar" basedir="${gui}"
+     manifest="./Scripts/Manifest.MF"
+     />  
+ </target>
+   
+  <!-- =================================================================================== -->
+
+</project>
