@@ -1,0 +1,70 @@
+<project name="Dal" default="buildDal" basedir="..">
+    <description>
+        Build a little java project and generate Jar file
+    </description>
+  
+  <!-- =================================================================================== -->
+  <!-- On déclare les noms de dossiers que l'on utilise dans le script. Cela nous permet de ne pas à recopier les chemins à chaque utilisation 
+  les chemins sont relatifs, celà permet une utilisation d'un poste à l'autre-->
+  <property name="src" location="TP_javaProject"/>
+  <property name="bin" location="bin"/>
+  <property name="jar" location="jar"/>
+  <property name="libs" location="Libs"/>
+  <property name="assets" location="Assets"/>
+
+
+  <!-- Sous dossiers pour les sources compilées.-->
+  <property name="dal" location="./bin/dal"/>
+ 
+
+
+  <property name="sqliteLibName" value="sqlite4java.jar"/>
+  <property name="jniLib1" value="libsqlite4java-osx-10.4.jnilib"/>
+  <property name="jniLib2" value="libsqlite4java-osx-ppc.jnilib"/>
+  <property name="jniLib3" value="libsqlite4java-osx.jnilib"/>
+  
+  <property name="db" value="database.db3"/>
+
+  <!-- =================================================================================== -->
+
+  <!-- =================================================================================== -->
+ <target name="clean" description="clean up folders" >
+ <echo message="Mon répertoire bin: ${bin}"/>
+    <delete dir="${bin}"/>
+    <delete dir="${jar}"/>
+
+    <mkdir dir="${bin}"/>
+    <mkdir dir="${dal}"/>
+    <mkdir dir="${gui}"/>
+    <mkdir dir="${services}"/>
+
+    <mkdir dir="${jar}"/>
+
+
+    <copy file="${assets}/${db}" todir="${jar}"/>
+    <copy file="${libs}/${sqliteLibName}" todir="${jar}"/>
+    <copy file="${libs}/${jniLib1}" todir="${jar}"/>
+    <copy file="${libs}/${jniLib2}" todir="${jar}"/>
+    <copy file="${libs}/${jniLib3}" todir="${jar}"/>
+    
+
+</target>
+
+
+  <!-- =================================================================================== -->
+
+
+<target name="buildDal" description="java compilation" depends="clean">
+
+    <javac srcdir="${src}/dal/src"
+          destdir="${dal}"
+          classpath="${jar}/${sqliteLibName}"
+          source="7"
+    /> 
+    <jar destfile="${jar}/dal.jar" basedir="${dal}"/>
+
+</target>
+
+  <!-- =================================================================================== -->
+
+</project>

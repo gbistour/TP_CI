@@ -1,0 +1,38 @@
+<project name="Service" default="buildSer" basedir="..">
+    <description>
+        Build a little java project and generate Jar file
+    </description>
+  
+  <!-- =================================================================================== -->
+  <!-- On déclare les noms de dossiers que l'on utilise dans le script. Cela nous permet de ne pas à recopier les chemins à chaque utilisation 
+  les chemins sont relatifs, celà permet une utilisation d'un poste à l'autre-->
+  <property name="src" location="TP_javaProject"/>
+  <property name="bin" location="bin"/>
+  <property name="jar" location="jar"/>
+  <property name="libs" location="Libs"/>
+  <property name="assets" location="Assets"/>
+
+
+  <!-- Sous dossiers pour les sources compilées.-->
+  <property name="dal" location="./bin/dal"/>
+  <property name="services" location="./bin/services"/>
+
+
+  <property name="sqliteLibName" value="sqlite4java.jar"/>
+  <property name="jniLib1" value="libsqlite4java-osx-10.4.jnilib"/>
+  <property name="jniLib2" value="libsqlite4java-osx-ppc.jnilib"/>
+  <property name="jniLib3" value="libsqlite4java-osx.jnilib"/>
+  
+  <property name="db" value="database.db3"/>
+
+<target name="buildSer" description="java compilation services" depends="buildDal">
+    <javac srcdir="${src}/services/src"
+          destdir="${services}"
+          classpath="${jar}/dal.jar"
+          source="7"
+          includeantruntime="false"
+    />  
+    <jar destfile="${jar}/services.jar" basedir="${services}"/> 
+  </target>
+
+</project>
