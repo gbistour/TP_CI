@@ -33,6 +33,6 @@
           includeantruntime="false"
     />  
     <jar destfile="${jar}/services.jar" basedir="${services}"/> 
-  </target>
+</target>
 
 </project>
