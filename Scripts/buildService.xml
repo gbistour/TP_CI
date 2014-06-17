@@ -17,6 +17,27 @@
   <property name="dal" location="./bin/dal"/>
   <property name="services" location="./bin/services"/>
 
+<target name="clean" description="clean up folders" >
+ <echo message="Mon répertoire bin: ${bin}"/>
+    <delete dir="${bin}"/>
+    <delete dir="${jar}"/>
+
+    <mkdir dir="${bin}"/>
+    <mkdir dir="${dal}"/>
+    <mkdir dir="${services}"/>
+
+    <mkdir dir="${jar}"/>
+
+
+    <copy file="${assets}/${db}" todir="${jar}"/>
+    <copy file="${libs}/${sqliteLibName}" todir="${jar}"/>
+    <copy file="${libs}/${jniLib1}" todir="${jar}"/>
+    <copy file="${libs}/${jniLib2}" todir="${jar}"/>
+    <copy file="${libs}/${jniLib3}" todir="${jar}"/>
+    
+
+</target>
+
 
   <property name="sqliteLibName" value="sqlite4java.jar"/>
   <property name="jniLib1" value="libsqlite4java-osx-10.4.jnilib"/>
