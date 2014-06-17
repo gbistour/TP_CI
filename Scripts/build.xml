@@ -32,14 +32,12 @@
  <target name="clean" description="clean up folders" >
  <echo message="Mon répertoire bin: ${bin}"/>
     <delete dir="${bin}"/>
-    <delete dir="${jar}"/>
 
     <mkdir dir="${bin}"/>
     <mkdir dir="${dal}"/>
     <mkdir dir="${gui}"/>
     <mkdir dir="${services}"/>
 
-    <mkdir dir="${jar}"/>
 
 
     <copy file="${assets}/${db}" todir="${jar}"/>
